@@ -1,6 +1,7 @@
 import { connectDb } from "@/app/utils/db";
 import { User } from "@/models/user";
 import { NextResponse } from "next/server";
+import bycrypt from "bcryptjs";
 
 connectDb();
 
@@ -34,6 +35,11 @@ export async function POST(request) {
   });
 
   try {
+    user.password = bycrypt.hashSync(
+      user.password,
+      parseInt(process.env.BYCRYPT_SALT)
+    );
+    console.log(user);
     const createdUser = await user.save();
 
     const response = NextResponse.json(user, {
@@ -47,7 +53,7 @@ export async function POST(request) {
     console.log(error);
     return NextResponse.json({
       message: "failed to create user",
-      status: false,
+      status: 500,
     });
   }
 }
