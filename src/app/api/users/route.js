@@ -8,6 +8,7 @@ connectDb();
 export async function GET(request) {
   let users = [];
   try {
+    await connectDb();
     users = await User.find().select("-password");
 
     const response = NextResponse.json(users, {
@@ -25,7 +26,7 @@ export async function GET(request) {
 export async function POST(request) {
   // fetch user details from request
   const { name, email, password, about, profileULR } = await request.json();
-
+  await connectDb();
   const user = new User({
     name,
     email,

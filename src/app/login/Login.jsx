@@ -1,9 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { loginUser } from "../utils/network";
+import { useRouter } from "next/navigation";
+import UserContext from "@/context/userContext";
 
-export default async function Login() {
+export default function Login() {
+  const context = useContext(UserContext);
+  const router = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -14,15 +19,24 @@ export default async function Login() {
 
     // validation
     if (user.email.trim() === "" || user.password.trim() === "") {
-      toast.warning("Fill the details to login", { position: "top-center" });
+      toast.warning("Fill the details to login", { position: "top-right" });
       return;
     }
 
     try {
+      const result = await loginUser(user);
+      console.log("login results", result);
+      if (result) {
+        toast.success("successfully logged in", {
+          position: "top-right",
+        });
+      }
+      context.setUser(result.user);
+      router.push("/show-tasks");
     } catch (error) {
       console.log("Error while logging in");
       console.log(error);
-      toast.error("Error logging in", { position: "top-center" });
+      toast.error("Error logging in", { position: "top-right" });
     }
   };
 
@@ -87,7 +101,10 @@ export default async function Login() {
             </div>
 
             <div className="mt-4 flex justify-center gap-5">
-              <button className="bg-blue-500 p-3 text-white rounded-lg hover:bg-blue-600">
+              <button
+                type="submit"
+                className="bg-blue-500 p-3 text-white rounded-lg hover:bg-blue-600"
+              >
                 Log in
               </button>
               <button

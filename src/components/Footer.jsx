@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className=" text-white bg-blue-500 ">
+    <footer className=" text-white bg-blue-500 fixed bottom-0 w-full">
       <div className="flex items-center p-4 h-50 justify-around">
         <div className="text-center flex flex-col justify-center">
           <h1 className="font-bold text-2xl pb-4">Welcome to Todo Manager</h1>

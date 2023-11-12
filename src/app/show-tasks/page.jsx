@@ -1,9 +1,14 @@
 import React from "react";
+import ShowTasks from "./ShowTasks";
 
 export const metadata = {
   title: "All Todos - Todo Manager",
 };
 
-export default function ShowTasks() {
-  return <div>ShowTasks</div>;
+export default function ShowTasksPage() {
+  return (
+    <div>
+      <ShowTasks />
+    </div>
+  );
 }

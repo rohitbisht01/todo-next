@@ -19,7 +19,7 @@ export default function AddTask() {
       const result = await addTask(task);
       //   console.log(result);
       if (result) {
-        toast.success("Your task is added", { position: "top-center" });
+        toast.success("Your task is added", { position: "top-right" });
       }
       setTask({
         title: "",
@@ -28,7 +28,7 @@ export default function AddTask() {
       });
     } catch (error) {
       console.log(error);
-      toast.error("Your task not added", { position: "top-center" });
+      toast.error("Your task not added", { position: "top-right" });
     }
   };
 

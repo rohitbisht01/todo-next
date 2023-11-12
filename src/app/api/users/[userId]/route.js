@@ -5,6 +5,7 @@ export async function GET(request, { params }) {
   const { userId } = params;
 
   try {
+    await connectDb();
     const user = await User.findById(userId);
 
     const response = NextResponse.json(user);
@@ -18,6 +19,7 @@ export async function GET(request, { params }) {
 export async function DELETE(request, { params }) {
   const { userId } = params;
   try {
+    await connectDb();
     await User.deleteOne({
       _id: userId,
     });
@@ -39,6 +41,7 @@ export async function PUT(request, { params }) {
   const { name, email, password, profileURL, about } = await request.json();
 
   try {
+    await connectDb();
     const user = await User.findById(userId);
     user.name = name;
     user.email = email;

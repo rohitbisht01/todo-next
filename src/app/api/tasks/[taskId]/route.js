@@ -1,3 +1,4 @@
+import { connectDb } from "@/app/utils/db";
 import { Task } from "@/models/task";
 import { NextResponse } from "next/server";
 
@@ -5,6 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(request, { params }) {
   const { taskId } = params;
   try {
+    await connectDb();
     const task = await Task.findById(taskId);
 
     const response = NextResponse.json(task, {
@@ -29,6 +31,7 @@ export async function PUT(request, { params }) {
   const { taskId } = params;
   const { title, content, status } = await request.json();
   try {
+    await connectDb();
     const task = await Task.findById(taskId);
 
     task.title = title;
@@ -57,6 +60,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   const { taskId } = params;
   try {
+    await connectDb();
     await Task.deleteOne({ _id: taskId });
 
     const response = NextResponse.json({

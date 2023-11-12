@@ -25,7 +25,7 @@ export default function SignUp() {
       user.about === ""
     ) {
       toast.warning("Fill all the details to proceed", {
-        position: "top-center",
+        position: "top-right",
       });
       return;
     }
@@ -34,7 +34,7 @@ export default function SignUp() {
       const result = await signUpUser(user);
       if (result) {
         toast.success("User successfully created", {
-          position: "top-center",
+          position: "top-right",
         });
       }
       setUser({
@@ -49,7 +49,7 @@ export default function SignUp() {
       console.log("Error while signing up");
       console.log(error);
       toast.error("Error while creating user", {
-        position: "top-center",
+        position: "top-right",
       });
     }
   };

@@ -1,11 +1,13 @@
 import { Task } from "@/models/task";
 import { NextResponse } from "next/server";
+import { connectDb } from "@/app/utils/db";
 
 // localhost:3000/api/users/[userId]/tasks
 export async function GET(request, { params }) {
   const { userId } = params;
 
   try {
+    await connectDb();
     const tasks = await Task.find({
       userId: userId,
     });
