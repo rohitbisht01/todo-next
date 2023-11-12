@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { signUpUser } from "../utils/network";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const router = useRouter();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -45,6 +47,7 @@ export default function SignUp() {
         profileURL:
           "https://img.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_632498-859.jpg?size=626&ext=jpg",
       });
+      router.push("/login");
     } catch (error) {
       console.log("Error while signing up");
       console.log(error);
