@@ -4,11 +4,12 @@ import bycrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { connectDb } from "@/app/utils/db";
 
+connectDb();
+
 export async function POST(request) {
   const { email, password } = await request.json();
 
   try {
-    await connectDb();
     const user = await User.findOne({
       email: email,
     });
